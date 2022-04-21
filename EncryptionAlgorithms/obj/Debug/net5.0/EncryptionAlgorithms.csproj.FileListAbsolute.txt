@@ -1,0 +1,16 @@
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\bin\Debug\net5.0\EncryptionAlgorithms.exe
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\bin\Debug\net5.0\EncryptionAlgorithms.deps.json
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\bin\Debug\net5.0\EncryptionAlgorithms.runtimeconfig.json
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\bin\Debug\net5.0\EncryptionAlgorithms.runtimeconfig.dev.json
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\bin\Debug\net5.0\EncryptionAlgorithms.dll
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\bin\Debug\net5.0\ref\EncryptionAlgorithms.dll
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\bin\Debug\net5.0\EncryptionAlgorithms.pdb
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\obj\Debug\net5.0\EncryptionAlgorithms.csproj.AssemblyReference.cache
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\obj\Debug\net5.0\EncryptionAlgorithms.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\obj\Debug\net5.0\EncryptionAlgorithms.AssemblyInfoInputs.cache
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\obj\Debug\net5.0\EncryptionAlgorithms.AssemblyInfo.cs
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\obj\Debug\net5.0\EncryptionAlgorithms.csproj.CoreCompileInputs.cache
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\obj\Debug\net5.0\EncryptionAlgorithms.dll
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\obj\Debug\net5.0\ref\EncryptionAlgorithms.dll
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\obj\Debug\net5.0\EncryptionAlgorithms.pdb
+C:\Users\WAIFU BIG FLOPPA\source\repos\EncryptionAlgorithms\EncryptionAlgorithms\obj\Debug\net5.0\EncryptionAlgorithms.genruntimeconfig.cache
