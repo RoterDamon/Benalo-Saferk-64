@@ -22,21 +22,28 @@ namespace EncryptionAlgorithms
         public Benalo(BigInteger message, TestMode mode, double minProbability, ulong size)
         {
             KeysGenerator keysGenerator = new KeysGenerator(mode, minProbability, size);
-            keys = keysGenerator.GenerateKeys(message);
+            keys = keysGenerator.Generate();
         }
         public BigInteger Encrypt(BigInteger message)//(y^m mod n) * (u^r mod n) mod n
         {
-            u = Functions.RandomInteger(0, keys.n);
+            while (true)
+            {
+                u = Functions.RandomInteger(2, keys.n - 1);
+                if (BigInteger.GreatestCommonDivisor(u, keys.n) == 1)
+                    break;
+            }
+            //u = Functions.RandomInteger(2, keys.n - 1);
+
             var left = BigInteger.ModPow(keys.y, message, keys.n);
             var right = BigInteger.ModPow(u, keys.r, keys.n);
            return BigInteger.Multiply(left, right) % keys.n;
         }
         public BigInteger Decrypt(BigInteger message)
         {
-            BigInteger res = 0;
+            BigInteger res;
             BigInteger count = 0;
             a = BigInteger.ModPow(message, keys.f / keys.r, keys.n);
-            for (BigInteger i = 0;  i <= keys.r; i++)
+            for (BigInteger i = 0;  i < keys.r; i++)
             {
                 res = BigInteger.ModPow(keys.x, i, keys.n);
                 if (res == a)
@@ -56,30 +63,76 @@ namespace EncryptionAlgorithms
                 numSize = size;
             }
 
+            public Keys Generate()//особо лучше не стало
+            {
+                Keys keys = new Keys();
+                Random rnd = new Random();
+                BigInteger p, q, r = 0;
+                p = GetPrimeNumber();
+                for(int i = 15; i > 1; i--)
+                {
+                    if (((p - 1) % i) == 0 && BigInteger.GreatestCommonDivisor((p - 1) / i, i) == 1)
+                    {
+                        r = (p - 1) / i;
+                        break;
+                    }
+                }
+               
+                while (true)
+                {
+                    q = GetPrimeNumber();
+                    if (BigInteger.GreatestCommonDivisor(r, q - 1) == 1) break;
+                }
+                BigInteger n = p * q;
+                BigInteger phi = (p - 1) * (q - 1);
+                BigInteger y, x;
+                while (true)
+                {
+                    y = Functions.RandomInteger(1, n);
+                    x = BigInteger.ModPow(y, phi / r, n);
+                    if (x != 1) break;
+                }
+                keys.x = x;
+                keys.y = y;
+                keys.n = n;
+                keys.f = phi;
+                keys.r = r;
+                return keys;
+              
+            }
+
             public Keys GenerateKeys(BigInteger message)
             {
                 Keys keys;
                 var random = new Random();
-                BigInteger p;
                 BigInteger q;
-                BigInteger r = Functions.RandomInteger(message, 100);//что это блять за число такое
-                BigInteger y = random.Next();
+                BigInteger p = GetPrimeNumber();
+                BigInteger r = message;//что это блять за число такое
+                
                 while (true)
                 {
-                    p = GetPrimeNumber();
-                    q = GetPrimeNumber();
-                    if ((p - 1) % r == 0 && Functions.EuclideanAlgorithm(r, (p - 1) / r) == 1
-                                        && Functions.EuclideanAlgorithm(r, q - 1) == 1)
+                    r++;     
+                    if ((p - 1) % r == 0 && BigInteger.GreatestCommonDivisor(r, (p - 1) / r) == 1 && r > message)
                         break;
                 }
+                while (true)
+                {
+                    q = GetPrimeNumber();
+                    if (BigInteger.GreatestCommonDivisor(r, q - 1) == 1)
+                        break;
+                }
+                /*MillerRabinTest test = new MillerRabinTest();
+                if (test.MakeSimplicityTest(r, probability)) 
+                    Console.WriteLine("hmmmm");*/
+
                 keys.r = r;
                 keys.n = BigInteger.Multiply(p, q);
                 keys.f = BigInteger.Multiply(p - 1, q - 1);
                 var pow = keys.f / keys.r;
-                
-                while (BigInteger.ModPow(y, pow, keys.n) == 1)
+                BigInteger y = Functions.RandomInteger(2, keys.n - 1);
+                while (BigInteger.ModPow(y, pow, keys.n) == 1 && BigInteger.GreatestCommonDivisor(y, keys.n) == 1)
                 {
-                    y = random.Next();
+                    y = Functions.RandomInteger(2, keys.n - 1);
                 }
                 keys.y = y;
                 keys.x = BigInteger.ModPow(keys.y, pow, keys.n);
@@ -91,6 +144,44 @@ namespace EncryptionAlgorithms
                 BigInteger newBigInt;
                 var random = new Random();
                 byte[] buffer = new byte[numSize];
+                while (true)
+                {
+                    do
+                    {
+                        random.NextBytes(buffer);
+                        newBigInt = new BigInteger(buffer);
+
+                    } while (newBigInt < 2);
+
+                    switch (testMode)
+                    {
+                        case TestMode.Fermat:
+                            {
+                                FermatTest test = new FermatTest();
+                                if (test.MakeSimplicityTest(newBigInt, probability)) return newBigInt;
+                                break;
+                            }
+                        case TestMode.MillerRabin:
+                            {
+                                MillerRabinTest test = new MillerRabinTest();
+                                if (test.MakeSimplicityTest(newBigInt, probability)) return newBigInt;
+                                break;
+                            }
+                        case TestMode.SolovayStrassen:
+                            {
+                                SolovayStrassenTest test = new SolovayStrassenTest();
+                                if (test.MakeSimplicityTest(newBigInt, probability)) return newBigInt;
+                                break;
+                            }
+                    }
+                }
+            }
+
+            public BigInteger GetPrimeNumber(ulong size)
+            {
+                BigInteger newBigInt;
+                var random = new Random();
+                byte[] buffer = new byte[size];
                 while (true)
                 {
                     do

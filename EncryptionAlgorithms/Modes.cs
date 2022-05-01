@@ -12,7 +12,7 @@ namespace EncryptionAlgorithms
         public EncryptionMode encryptionMode;
         public byte[] InitializationVector;
         static int BlockSize = 8;
-        public EncryptionDecryptionFunctionality algorithm;
+        public IEncrDecrFunctionality algorithm;
 
         public Modes(EncryptionMode mode, byte[] vector)
         {
